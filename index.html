@@ -86,12 +86,10 @@
     // Always-load raw GitHub base (EDIT THIS to your repo)
 // Load images relative to this page (best for GitHub Pages)
 // Base path for GitHub Pages deployment
-// Base path for GitHub Pages deployment (repo slug + folder)
-const BASE = 'med-class-1983/med-class-gallery/images/'; // keep empty to use paths like 'image/...' from the CSV
+const BASE = 'med-class-gallery/images/'; // path from index.html to your images folder
 
     // The hero / “full class” image file in your repo:
     // Match your CSV folder name (it uses 'image/', not 'images/')
-// Hero (full class) image lives in the same images/ folder
 const HERO_SRC = BASE + 'full-class.jpg';
 
     // Permanent list of portraits. Update the filenames to match the exact files in images/.
@@ -172,7 +170,7 @@ const HERO_SRC = BASE + 'full-class.jpg';
       heroImg.src = HERO_SRC;
       // Grid
       PORTRAITS.forEach(item => {
-        const src = encodeURI(BASE + item.file)); // if item.file is absolute URL, keep as is
+        const src = encodeURI(BASE + (item.file || '').replace(/^image\//, '')); // strip leading 'image/' from CSV entries
         grid.appendChild(makeFigure(src, item.name));
       });
       wireLightbox();
