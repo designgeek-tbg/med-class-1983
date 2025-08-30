@@ -24,11 +24,11 @@
     .hero figcaption{padding:.6rem .8rem; text-align:center; border-top:1px solid #1a1f25}
 
     /* Grid */
-    .grid{display:grid; gap:var(--gap); margin-top:1.25rem; grid-template-columns: repeat(5, 1fr);}
-    @media (max-width:1100px){ .grid{grid-template-columns:repeat(4,1fr);} }
-    @media (max-width:900px){ .grid{grid-template-columns:repeat(3,1fr);} }
-    @media (max-width:640px){ .grid{grid-template-columns:repeat(2,1fr);} }
-    @media (max-width:420px){ .grid{grid-template-columns:1fr;} }
+    .grid{ display:grid; gap:var(--gap); margin-top:1.25rem; grid-template-columns: repeat(5, 1fr); }
+@media (max-width:1100px){ .grid{ grid-template-columns:repeat(4,1fr); } }
+@media (max-width:900px){  .grid{ grid-template-columns:repeat(3,1fr); } }
+@media (max-width:640px){  .grid{ grid-template-columns:repeat(2,1fr); } }
+/* (remove the old @media (max-width:420px){ .grid{grid-template-columns:1fr;} } ) */
 
     figure.card{margin:0; background:var(--panel); border:1px solid #1a1f25; border-radius:var(--radius); overflow:hidden}
     /* was: aspect-ratio: 4/3; */
