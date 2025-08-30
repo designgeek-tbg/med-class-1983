@@ -31,7 +31,8 @@
     @media (max-width:420px){ .grid{grid-template-columns:1fr;} }
 
     figure.card{margin:0; background:var(--panel); border:1px solid #1a1f25; border-radius:var(--radius); overflow:hidden}
-    .thumb{display:block; width:100%; height:auto; aspect-ratio:4/3; object-fit:cover; transition:transform .2s ease}
+    /* was: aspect-ratio: 4/3; */
+.thumb{ display:block; width:100%; height:auto; aspect-ratio: 2 / 3; object-fit: cover; transition: transform .2s ease }
     figure.card:hover .thumb{transform:scale(1.02)}
     figcaption{padding:.6rem .8rem; text-align:center; font-size:.95rem; color:var(--text); border-top:1px solid #1a1f25}
 
