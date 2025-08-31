@@ -45,6 +45,13 @@
     figure.card:hover .thumb{transform:scale(1.02)}
     figcaption{padding:.6rem .8rem; text-align:center; font-size:.95rem; color:var(--text); border-top:1px solid #1a1f25}
 
+    /* Ensure images also clip to rounded corners */
+figure.card img,
+.hero img {
+  border-radius: var(--radius);
+  display: block;
+}
+
     /* See more button */
     .see-more-wrap{ display:none; margin-top:1rem; text-align:center; }
     @media (max-width:640px){ .see-more-wrap{ display:block; } }
