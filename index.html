@@ -41,16 +41,16 @@
     @media (max-width:640px){  .grid{ grid-template-columns:repeat(3,1fr); } }
 
     figure.card{margin:0; background:var(--panel); border:1px solid #1a1f25; border-radius:var(--radius); overflow:hidden}
-    .thumb{ display:block; width:100%; height:auto; aspect-ratio: 2 / 2.828; object-fit: cover; transition: transform .2s ease }
+    .thumb{ display:block; width:100%; height:auto; aspect-ratio: 2 / 3; object-fit: cover; transition: transform .2s ease }
     figure.card:hover .thumb{transform:scale(1.02)}
     figcaption{padding:.6rem .8rem; text-align:center; font-size:.95rem; color:var(--text); border-top:1px solid #1a1f25}
 
     /* Ensure images also clip to rounded corners */
-figure.card img,
-.hero img {
-  border-radius: var(--radius);
-  display: block;
-}
+    figure.card img,
+    .hero img {
+      border-radius: var(--radius);
+      display: block;
+    }
 
     /* Lightbox */
     .lightbox{position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,.7); backdrop-filter:blur(6px); z-index:9999}
@@ -85,7 +85,6 @@ figure.card img,
 
     <!-- GRID -->
     <main class="grid" id="grid" aria-live="polite"></main>
-
   </div>
 
   <!-- LIGHTBOX -->
@@ -96,7 +95,7 @@ figure.card img,
       <button class="lb-btn prev" id="prevBtn" aria-label="Previous image" title="Previous (←)">❮</button>
       <button class="lb-btn next" id="nextBtn" aria-label="Next image" title="Next (→)">❯</button>
       <button class="close" id="closeBtn" aria-label="Close (Esc)" title="Close (Esc)">✕</button>
-      <div class="help">Tap/Click to <span class="kbd">zoom</span>; pinch to zoom on mobile; drag to pan; <span class="kbd">←</span>/<span class="kbd">→</span> to navigate</div>
+      <div class="help">Tap/Click to <span class="kbd">zoom</span>; drag to pan; <span class="kbd">←</span>/<span class="kbd">→</span> to navigate</div>
     </div>
   </div>
 
@@ -105,65 +104,64 @@ figure.card img,
     const BASE = '/med-class-1983/med-class-gallery/images/';
     const HERO_SRC = BASE + 'full-class.jpg';
 
-    // ===== Portraits (simplified file names for repo) =====
+    // ===== Portraits =====
     const PORTRAITS = [
-  { file: 'image/MMH_John Barry.png', name: 'John Barry', alt: 'Photo of John Barry' },
-  { file: 'image/MMH_Mary Cosgrave.png', name: 'Mary Cosgrave', alt: 'Photo of Mary Cosgrave' },
-  { file: 'image/MMH_Eugene Cotter.png', name: 'Eugene Cotter', alt: 'Photo of Eugene Cotter' },
-  { file: 'image/MMH_Edward Burke.png', name: 'Edward Burke', alt: 'Photo of Edward Burke' },
-  { file: 'image/MMH_John Corcoran.png', name: 'John Corcoran', alt: 'Photo of John Corcoran' },
-  { file: 'image/MMH_Maire Rhatigan.png', name: 'Máire Rhatigan', alt: 'Photo of Máire Rhatigan' },
-  { file: 'image/MMH_John Doddy.png', name: 'John Doddy', alt: 'Photo of John Doddy' },
-  { file: 'image/MMH_Kieran Foley.png', name: 'Kieran Foley', alt: 'Photo of Kieran Foley' },
-  { file: 'image/MMH_William Gaine.png', name: 'William Gaine', alt: 'Photo of William Gaine' },
-  { file: 'image/MMH_Jacinta McCann.png', name: 'Jacinta McCann', alt: 'Photo of Jacinta McCann' },
-  { file: 'image/MMH_Teresa Coll.png', name: 'Teresa Coll', alt: 'Photo of Teresa Coll' },
-  { file: 'image/MMH_Kieran Bourke.png', name: 'Kieran Bourke', alt: 'Photo of Kieran Bourke' },
-  { file: 'image/MMH_Niall Colwell.png', name: 'Niall Colwell', alt: 'Photo of Niall Colwell' },
-  { file: 'image/MMH_Rita Cassidy.png', name: 'Rita Cassidy', alt: 'Photo of Rita Cassidy' },
-  { file: 'image/MMH_Paul Deegan.png', name: 'Paul Deegan', alt: 'Photo of Paul Deegan' },
-  { file: 'image/MMH_Mary Cumiskey.png', name: 'Mary Cumiskey', alt: 'Photo of Mary Cumiskey' },
-  { file: 'image/MMH_Pauline Gallagher.png', name: 'Pauline Gallagher', alt: 'Photo of Pauline Gallagher' },
-  { file: 'image/MMH_Pasqueline Lyng.png', name: 'Pasqueline Lyng', alt: 'Photo of Pasqueline Lyng' },
-  { file: 'image/MMH_Michelle McCormack.png', name: 'Michelle McCormack', alt: 'Photo of Michelle McCormack' },
-  { file: 'image/MMH_James Keely.png', name: 'James Keely', alt: 'Photo of James Keely' },
-  { file: 'image/MMH_Fergal Hickey.png', name: 'Fergal Hickey', alt: 'Photo of Fergal Hickey' },
-  { file: 'image/MMH_Peter Moran.png', name: 'Peter Moran', alt: 'Photo of Peter Moran' },
-  { file: 'image/MMH_Damian McCormack.png', name: 'Damian McCormack', alt: 'Photo of Damian McCormack' },
-  { file: 'image/MMH_Jacqueline McElhinney.png', name: 'Jacqueline McElhinney', alt: 'Photo of Jacqueline McElhinney' },
-  { file: 'image/MMH_Edel McGinnity.png', name: 'Edel McGinnity', alt: 'Photo of Edel McGinnity' },
-  { file: 'image/MMH_John Tyndall.png', name: 'John Tyndall', alt: 'Photo of John Tyndall' },
-  { file: 'image/MMH_William Grogan.png', name: 'William Grogan', alt: 'Photo of William Grogan' },
-  { file: 'image/MMH_Maeve McKeogh.png', name: 'Maeve McKeogh', alt: 'Photo of Maeve McKeogh' },
-  { file: 'image/MMH_Edward Keelan.png', name: 'Edward Keelan', alt: 'Photo of Edward Keelan' },
-  { file: 'image/MMH_Derval Igoe.png', name: 'Derval Igoe', alt: 'Photo of Derval Igoe' },
-  { file: 'image/MMH_Kieran Morris.png', name: 'Kieran Morris', alt: 'Photo of Kieran Morris' },
-  { file: 'image/MMH_Brigid McCann.png', name: 'Brigid McCann', alt: 'Photo of Brigid McCann' },
-  { file: 'image/MMH_Christopher McTiernan.png', name: 'Christopher McTiernan', alt: 'Photo of Christopher McTiernan' },
-  { file: 'image/MMH_David Walshe.png', name: 'David Walshe', alt: 'Photo of David Walshe' },
-  { file: 'image/MMH_Brian Hendley.png', name: 'Brian Hendley', alt: 'Photo of Brian Hendley' },
-  { file: 'image/MMH_Regina McQuillan.png', name: 'Regina McQuillan', alt: 'Photo of Regina McQuillan' },
-  { file: 'image/MMH_Philip Murphy.png', name: 'Philip Murphy', alt: 'Photo of Philip Murphy' },
-  { file: 'image/MMH_Fionnula Ni Ghrainne.png', name: 'Fionnula Ní Ghrainne', alt: 'Photo of Fionnula Ní Ghrainne' },
-  { file: 'image/MMH_Desmond O’Duffy.png', name: 'Desmond O’Duffy', alt: 'Photo of Desmond O’Duffy' },
-  { file: 'image/MMH_Brendan Morrissey.png', name: 'Brendan Morrissey', alt: 'Photo of Brendan Morrissey' },
-  { file: 'image/MMH_Helen Mullan.png', name: 'Helen Mullan', alt: 'Photo of Helen Mullan' },
-  { file: 'image/MMH_John Mulroy.png', name: 'John Mulroy', alt: 'Photo of John Mulroy' },
-  { file: 'image/MMH_Victor O’Loughlin.png', name: 'Victor O’Loughlin', alt: 'Photo of Victor O’Loughlin' },
-  { file: 'image/MMH_Mary Merry.png', name: 'Mary Merry', alt: 'Photo of Mary Merry' },
-  { file: 'image/MMH_Shane Meehan.png', name: 'Shane Meehan', alt: 'Photo of Shane Meehan' },
-  { file: 'image/MMH_Eibhlin Ni Choinghealtaigh.png', name: 'Eibhlín Ní Choinghealtaigh', alt: 'Photo of Eibhlín Ní Choinghealtaigh' },
-  { file: 'image/MMH_Mary O’Brien.png', name: 'Mary O’Brien', alt: 'Photo of Mary O’Brien' },
-  { file: 'image/MMH_Conor Farren.png', name: 'Conor Farren', alt: 'Photo of Conor Farren' },
-  { file: 'image/MMH_Martin O’Donnell.png', name: 'Martin O’Donnell', alt: 'Photo of Martin O’Donnell' },
-  { file: 'image/MMH_Brona O’Neill.png', name: 'Brona O’Neill', alt: 'Photo of Brona O’Neill' },
-  { file: 'image/MMH_Terence Taylor.png', name: 'Terence Taylor', alt: 'Photo of Terence Taylor' },
-  { file: 'image/MMH_Lillian Murnane.png', name: 'Liam Murnane', alt: 'Photo of Liam Murnane' },
-  { file: 'image/MMH_Joan Ryan.png', name: 'Joan Ryan', alt: 'Photo of Joan Ryan' },
-  { file: 'image/MMH_Vincent Parsons.png', name: 'Vincent Parsons', alt: 'Photo of Vincent Parsons' },
-  { file: 'image/MMH_David Tangney.png', name: 'David Tangney', alt: 'Photo of David Tangney' }
-];
-
+      { file: 'image/MMH_John Barry.png', name: 'John Barry', alt: 'Photo of John Barry' },
+      { file: 'image/MMH_Mary Cosgrave.png', name: 'Mary Cosgrave', alt: 'Photo of Mary Cosgrave' },
+      { file: 'image/MMH_Eugene Cotter.png', name: 'Eugene Cotter', alt: 'Photo of Eugene Cotter' },
+      { file: 'image/MMH_Edward Burke.png', name: 'Edward Burke', alt: 'Photo of Edward Burke' },
+      { file: 'image/MMH_John Corcoran.png', name: 'John Corcoran', alt: 'Photo of John Corcoran' },
+      { file: 'image/MMH_Maire Rhatigan.png', name: 'Máire Rhatigan', alt: 'Photo of Máire Rhatigan' },
+      { file: 'image/MMH_John Doddy.png', name: 'John Doddy', alt: 'Photo of John Doddy' },
+      { file: 'image/MMH_Kieran Foley.png', name: 'Kieran Foley', alt: 'Photo of Kieran Foley' },
+      { file: 'image/MMH_William Gaine.png', name: 'William Gaine', alt: 'Photo of William Gaine' },
+      { file: 'image/MMH_Jacinta McCann.png', name: 'Jacinta McCann', alt: 'Photo of Jacinta McCann' },
+      { file: 'image/MMH_Teresa Coll.png', name: 'Teresa Coll', alt: 'Photo of Teresa Coll' },
+      { file: 'image/MMH_Kieran Bourke.png', name: 'Kieran Bourke', alt: 'Photo of Kieran Bourke' },
+      { file: 'image/MMH_Niall Colwell.png', name: 'Niall Colwell', alt: 'Photo of Niall Colwell' },
+      { file: 'image/MMH_Rita Cassidy.png', name: 'Rita Cassidy', alt: 'Photo of Rita Cassidy' },
+      { file: 'image/MMH_Paul Deegan.png', name: 'Paul Deegan', alt: 'Photo of Paul Deegan' },
+      { file: 'image/MMH_Mary Cumiskey.png', name: 'Mary Cumiskey', alt: 'Photo of Mary Cumiskey' },
+      { file: 'image/MMH_Pauline Gallagher.png', name: 'Pauline Gallagher', alt: 'Photo of Pauline Gallagher' },
+      { file: 'image/MMH_Pasqueline Lyng.png', name: 'Pasqueline Lyng', alt: 'Photo of Pasqueline Lyng' },
+      { file: 'image/MMH_Michelle McCormack.png', name: 'Michelle McCormack', alt: 'Photo of Michelle McCormack' },
+      { file: 'image/MMH_James Keely.png', name: 'James Keely', alt: 'Photo of James Keely' },
+      { file: 'image/MMH_Fergal Hickey.png', name: 'Fergal Hickey', alt: 'Photo of Fergal Hickey' },
+      { file: 'image/MMH_Peter Moran.png', name: 'Peter Moran', alt: 'Photo of Peter Moran' },
+      { file: 'image/MMH_Damian McCormack.png', name: 'Damian McCormack', alt: 'Photo of Damian McCormack' },
+      { file: 'image/MMH_Jacqueline McElhinney.png', name: 'Jacqueline McElhinney', alt: 'Photo of Jacqueline McElhinney' },
+      { file: 'image/MMH_Edel McGinnity.png', name: 'Edel McGinnity', alt: 'Photo of Edel McGinnity' },
+      { file: 'image/MMH_John Tyndall.png', name: 'John Tyndall', alt: 'Photo of John Tyndall' },
+      { file: 'image/MMH_William Grogan.png', name: 'William Grogan', alt: 'Photo of William Grogan' },
+      { file: 'image/MMH_Maeve McKeogh.png', name: 'Maeve McKeogh', alt: 'Photo of Maeve McKeogh' },
+      { file: 'image/MMH_Edward Keelan.png', name: 'Edward Keelan', alt: 'Photo of Edward Keelan' },
+      { file: 'image/MMH_Derval Igoe.png', name: 'Derval Igoe', alt: 'Photo of Derval Igoe' },
+      { file: 'image/MMH_Kieran Morris.png', name: 'Kieran Morris', alt: 'Photo of Kieran Morris' },
+      { file: 'image/MMH_Brigid McCann.png', name: 'Brigid McCann', alt: 'Photo of Brigid McCann' },
+      { file: 'image/MMH_Christopher McTiernan.png', name: 'Christopher McTiernan', alt: 'Photo of Christopher McTiernan' },
+      { file: 'image/MMH_David Walshe.png', name: 'David Walshe', alt: 'Photo of David Walshe' },
+      { file: 'image/MMH_Brian Hendley.png', name: 'Brian Hendley', alt: 'Photo of Brian Hendley' },
+      { file: 'image/MMH_Regina McQuillan.png', name: 'Regina McQuillan', alt: 'Photo of Regina McQuillan' },
+      { file: 'image/MMH_Philip Murphy.png', name: 'Philip Murphy', alt: 'Photo of Philip Murphy' },
+      { file: 'image/MMH_Fionnula Ni Ghrainne.png', name: 'Fionnula Ní Ghrainne', alt: 'Photo of Fionnula Ní Ghrainne' },
+      { file: 'image/MMH_Desmond O’Duffy.png', name: 'Desmond O’Duffy', alt: 'Photo of Desmond O’Duffy' },
+      { file: 'image/MMH_Brendan Morrissey.png', name: 'Brendan Morrissey', alt: 'Photo of Brendan Morrissey' },
+      { file: 'image/MMH_Helen Mullan.png', name: 'Helen Mullan', alt: 'Photo of Helen Mullan' },
+      { file: 'image/MMH_John Mulroy.png', name: 'John Mulroy', alt: 'Photo of John Mulroy' },
+      { file: 'image/MMH_Victor O’Loughlin.png', name: 'Victor O’Loughlin', alt: 'Photo of Victor O’Loughlin' },
+      { file: 'image/MMH_Mary Merry.png', name: 'Mary Merry', alt: 'Photo of Mary Merry' },
+      { file: 'image/MMH_Shane Meehan.png', name: 'Shane Meehan', alt: 'Photo of Shane Meehan' },
+      { file: 'image/MMH_Eibhlin Ni Choinghealtaigh.png', name: 'Eibhlín Ní Choinghealtaigh', alt: 'Photo of Eibhlín Ní Choinghealtaigh' },
+      { file: 'image/MMH_Mary O’Brien.png', name: 'Mary O’Brien', alt: 'Photo of Mary O’Brien' },
+      { file: 'image/MMH_Conor Farren.png', name: 'Conor Farren', alt: 'Photo of Conor Farren' },
+      { file: 'image/MMH_Martin O’Donnell.png', name: 'Martin O’Donnell', alt: 'Photo of Martin O’Donnell' },
+      { file: 'image/MMH_Brona O’Neill.png', name: 'Brona O’Neill', alt: 'Photo of Brona O’Neill' },
+      { file: 'image/MMH_Terence Taylor.png', name: 'Terence Taylor', alt: 'Photo of Terence Taylor' },
+      { file: 'image/MMH_Lillian Murnane.png', name: 'Lillian Murnane', alt: 'Photo of Lillian Murnane' },
+      { file: 'image/MMH_Joan Ryan.png', name: 'Joan Ryan', alt: 'Photo of Joan Ryan' },
+      { file: 'image/MMH_Vincent Parsons.png', name: 'Vincent Parsons', alt: 'Photo of Vincent Parsons' },
+      { file: 'image/MMH_David Tangney.png', name: 'David Tangney', alt: 'Photo of David Tangney' }
+    ];
 
     // ===== Helpers =====
     function normaliseFile(file) {
@@ -179,10 +177,6 @@ figure.card img,
     const openHeroBtn = document.getElementById('openHero');
     const downloadHero = document.getElementById('downloadHero');
 
-    let mobileCapped = false;
-    const MOBILE_MAX = 640;
-    const MOBILE_VISIBLE_COUNT = 16;
-
     function makeFigure(src, caption, alt) {
       const fig = document.createElement('figure');
       fig.className = 'card';
@@ -192,6 +186,14 @@ figure.card img,
       img.alt = alt || caption || '';
       img.loading = 'lazy';
       img.decoding = 'async';
+      img.onerror = function () {
+        console.warn('Image failed:', img.src);
+        fig.classList.add('broken');
+        const warn = document.createElement('figcaption');
+        warn.style.color = '#f99';
+        warn.textContent = 'Missing: ' + decodeURI(img.src).split('/').pop();
+        fig.appendChild(warn);
+      };
       const cap = document.createElement('figcaption');
       cap.textContent = caption || '';
       fig.appendChild(img);
@@ -208,10 +210,9 @@ figure.card img,
         grid.appendChild(makeFigure(src, item.name, item.alt));
       });
       wireLightbox();
-      applyMobileCap();
     }
 
-    // ===== Lightbox (simplified for brevity) =====
+    // ===== Lightbox (with simple zoom + drag pan) =====
     const lb = document.getElementById('lightbox');
     const lbImg = document.getElementById('lbImg');
     const lbCap = document.getElementById('lbCap');
@@ -220,31 +221,110 @@ figure.card img,
     const closeBtn = document.getElementById('closeBtn');
     let items = [], index = 0;
 
+    // Zoom/drag state
+    let scale = 1, offsetX = 0, offsetY = 0, dragging = false, startX = 0, startY = 0;
+    const ZOOM = 2.4;
+
     function wireLightbox(){
       const figs = Array.from(document.querySelectorAll('.grid figure'));
       items = figs.map(fig => {
         const img = fig.querySelector('img');
         const cap = fig.querySelector('figcaption');
+        fig.tabIndex = 0;
         fig.onclick = () => openLB(figs.indexOf(fig)+1);
+        fig.onkeydown = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLB(figs.indexOf(fig)+1); } };
         return { src: img.src, alt: img.alt, caption: cap.textContent };
       });
+      // Prepend hero at index 0
       items.unshift({ src: HERO_SRC, alt: 'Full class photograph', caption: 'Full class' });
       heroImg.addEventListener('click', () => openLB(0));
       openHeroBtn.addEventListener('click', () => openLB(0));
     }
 
-    function openLB(i){ index=i; updateLB(); lb.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
-    function closeLB(){ lb.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
-    function updateLB(){ const it=items[index]; lbImg.src=it.src; lbCap.textContent=it.caption; }
+    function openLB(i){
+      index = i;
+      updateLB();
+      lb.setAttribute('aria-hidden','false');
+      document.body.style.overflow='hidden';
+    }
+    function closeLB(){
+      lb.setAttribute('aria-hidden','true');
+      document.body.style.overflow='';
+      resetZoom();
+    }
+    function updateLB(){
+      const it = items[index];
+      lbImg.src = it.src;
+      lbImg.alt = it.alt || it.caption || '';
+      lbCap.textContent = it.caption || '';
+      resetZoom();
+    }
+    function prev(){ index=(index-1+items.length)%items.length; updateLB(); }
+    function next(){ index=(index+1)%items.length; updateLB(); }
 
-    prevBtn.addEventListener('click', ()=>{index=(index-1+items.length)%items.length;updateLB();});
-    nextBtn.addEventListener('click', ()=>{index=(index+1)%items.length;updateLB();});
+    function resetZoom(){
+      scale = 1; offsetX = 0; offsetY = 0; dragging = false;
+      lbImg.style.transform = 'translate(0,0) scale(1)';
+      lbImg.classList.remove('lb-zoomed');
+      lbImg.style.cursor = 'zoom-in';
+    }
+    function toggleZoom(){
+      if (scale === 1){
+        scale = ZOOM; lbImg.classList.add('lb-zoomed');
+        lbImg.style.cursor = 'grab';
+      } else {
+        resetZoom();
+        return;
+      }
+      applyTransform();
+    }
+    function applyTransform(){
+      lbImg.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
+    }
+
+    // Drag pan (mouse)
+    function onDown(e){
+      if (scale === 1) return;
+      dragging = true;
+      const p = e.touches ? e.touches[0] : e;
+      startX = p.clientX - offsetX;
+      startY = p.clientY - offsetY;
+      lbImg.style.cursor = 'grabbing';
+    }
+    function onMove(e){
+      if (!dragging || scale === 1) return;
+      const p = e.touches ? e.touches[0] : e;
+      offsetX = p.clientX - startX;
+      offsetY = p.clientY - startY;
+      applyTransform();
+    }
+    function onUp(){
+      dragging = false;
+      if (scale > 1) lbImg.style.cursor = 'grab';
+    }
+
+    // Events
+    lb.addEventListener('click', (e) => { if (e.target === lb) closeLB(); });
     closeBtn.addEventListener('click', closeLB);
-    lb.addEventListener('click', e=>{if(e.target===lb)closeLB();});
+    prevBtn.addEventListener('click', prev);
+    nextBtn.addEventListener('click', next);
+    lbImg.addEventListener('click', () => toggleZoom());
 
-    if (seeMoreBtn) seeMoreBtn.addEventListener('click', toggleSeeMore);
-    window.addEventListener('resize', applyMobileCap);
-    window.addEventListener('orientationchange', applyMobileCap);
+    lbImg.addEventListener('mousedown', onDown);
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onUp);
+
+    lbImg.addEventListener('touchstart', onDown, { passive:true });
+    lbImg.addEventListener('touchmove', onMove, { passive:true });
+    lbImg.addEventListener('touchend', onUp);
+
+    window.addEventListener('keydown', (e) => {
+      if (lb.getAttribute('aria-hidden') === 'true') return;
+      if (e.key === 'Escape') closeLB();
+      else if (e.key === 'ArrowLeft') prev();
+      else if (e.key === 'ArrowRight') next();
+      else if (e.key === 'Enter') toggleZoom();
+    });
 
     document.addEventListener('DOMContentLoaded', renderGrid);
   </script>
