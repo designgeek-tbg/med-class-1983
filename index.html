@@ -52,10 +52,6 @@ figure.card img,
   display: block;
 }
 
-    /* See more button */
-    .see-more-wrap{ display:none; margin-top:1rem; text-align:center; }
-    @media (max-width:640px){ .see-more-wrap{ display:block; } }
-
     /* Lightbox */
     .lightbox{position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,.7); backdrop-filter:blur(6px); z-index:9999}
     .lightbox[aria-hidden="false"]{display:flex}
@@ -90,10 +86,6 @@ figure.card img,
     <!-- GRID -->
     <main class="grid" id="grid" aria-live="polite"></main>
 
-    <!-- See more -->
-    <div class="see-more-wrap">
-      <button id="seeMoreBtn" class="btn" type="button" aria-expanded="false">See more</button>
-    </div>
   </div>
 
   <!-- LIGHTBOX -->
@@ -166,7 +158,7 @@ figure.card img,
   { file: 'image/MMH_Martin O’Donnell.png', name: 'Martin O’Donnell', alt: 'Photo of Martin O’Donnell' },
   { file: 'image/MMH_Brona O’Neill.png', name: 'Brona O’Neill', alt: 'Photo of Brona O’Neill' },
   { file: 'image/MMH_Terence Taylor.png', name: 'Terence Taylor', alt: 'Photo of Terence Taylor' },
-  { file: 'image/MMH_Lillian Murnane.png', name: 'Lillian Murnane', alt: 'Photo of Lillian Murnane' },
+  { file: 'image/MMH_Lillian Murnane.png', name: 'Liam Murnane', alt: 'Photo of Liam Murnane' },
   { file: 'image/MMH_Joan Ryan.png', name: 'Joan Ryan', alt: 'Photo of Joan Ryan' },
   { file: 'image/MMH_Vincent Parsons.png', name: 'Vincent Parsons', alt: 'Photo of Vincent Parsons' },
   { file: 'image/MMH_David Tangney.png', name: 'David Tangney', alt: 'Photo of David Tangney' }
@@ -220,15 +212,6 @@ figure.card img,
       applyMobileCap();
     }
 
-    // ===== Mobile cap for "See more" =====
-    function isMobile(){ return window.matchMedia(`(max-width:${MOBILE_MAX}px)`).matches; }
-    function applyMobileCap(){
-      const cards = Array.from(document.querySelectorAll('#grid .card'));
-      if (!isMobile()){
-        cards.forEach(c => c.style.display = '');
-        mobileCapped = false;
-        seeMoreBtn.style.display = 'none';
-        return;
       }
       cards.forEach((c, i) => { c.style.display = (i < MOBILE_VISIBLE_COUNT) ? '' : 'none'; });
       mobileCapped = true;
