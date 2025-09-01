@@ -212,24 +212,6 @@ figure.card img,
       applyMobileCap();
     }
 
-      }
-      cards.forEach((c, i) => { c.style.display = (i < MOBILE_VISIBLE_COUNT) ? '' : 'none'; });
-      mobileCapped = true;
-      seeMoreBtn.textContent = 'See more';
-      seeMoreBtn.setAttribute('aria-expanded','false');
-      seeMoreBtn.style.display = '';
-    }
-    function revealAll(){
-      const cards = Array.from(document.querySelectorAll('#grid .card'));
-      cards.forEach(c => c.style.display = '');
-      mobileCapped = false;
-      seeMoreBtn.textContent = 'See less';
-      seeMoreBtn.setAttribute('aria-expanded','true');
-    }
-    function toggleSeeMore(){
-      if (mobileCapped) revealAll(); else applyMobileCap();
-    }
-
     // ===== Lightbox (simplified for brevity) =====
     const lb = document.getElementById('lightbox');
     const lbImg = document.getElementById('lbImg');
